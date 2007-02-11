@@ -1,0 +1,4 @@
+Revision history for Perl extension XMail::Install.
+
+1.00  Tue Jan 09 11:30:45 2007
+	- Original version
