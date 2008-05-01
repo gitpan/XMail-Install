@@ -1,6 +1,6 @@
 Build.bat
 Build.PL
-Changes.txt
+CHANGES
 examples/install-xmail-1.pl
 examples/install-xmail-2.pl
 examples/localhost-receive-mail.pl
@@ -15,7 +15,7 @@ lib/XMail/Install.pm
 Makefile.PL
 MANIFEST			This list of files
 MANIFEST.SKIP
+META.yml
 README
 t/pod.t
 t/test.t
-META.yml

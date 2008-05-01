@@ -26,7 +26,7 @@ use Win32::Process::List;
 use Win32::Service;
 use Win32::TieRegistry (Delimiter => '/');
 
-our $VERSION = '1.00';
+our $VERSION = '1.01';
 
 # -----------------------------------------------
 
@@ -248,10 +248,10 @@ sub new
 
 	$$self{'_options'}							= {}						if (! $$self{'_options'});
 	$$self{'_options'}{'domain_name'}			= 'xmail.net'				if (! $$self{'_options'}{'domain_name'});
-	$$self{'_options'}{'in_dir'}				= dir('c:', 'xmail-1.24')	if (! $$self{'_options'}{'in_dir'});
+	$$self{'_options'}{'server'}				= '127.0.0.1'				if (! $$self{'_options'}{'server'});
+	$$self{'_options'}{'in_dir'}				= dir('c:', 'xmail-1.25')	if (! $$self{'_options'}{'in_dir'});
 	$$self{'_options'}{'long_delay'}			= 20;
 	$$self{'_options'}{'out_dir'}				= dir('c:')					if (! $$self{'_options'}{'out_dir'});
-	$$self{'_options'}{'server'}                = '127.0.0.1'				if (! $$self{'_options'}{'server'});
 	$$self{'_options'}{'postmaster_password'}	= 'richness-of-martens'		if (! $$self{'_options'}{'postmaster_password'});
 	$$self{'_options'}{'short_delay'}			= 5;
 	$$self{'_options'}{'user_name'}				= 'rsavage'					if (! $$self{'_options'}{'user_name'});
@@ -261,10 +261,10 @@ sub new
 	$self -> info("Program:             $0");
 	$self -> info("Version:             $VERSION");
 	$self -> info("domain_name:         $$self{'_options'}{'domain_name'}");
+	$self -> info("server:  		    $$self{'_options'}{'server'}");
 	$self -> info("in_dir:              $$self{'_options'}{'in_dir'}");
 	$self -> info("out_dir:             $$self{'_options'}{'out_dir'}");
 	$self -> info("postmaster_password: $$self{'_options'}{'postmaster_password'}");
-	$self -> info("server:              $$self{'_options'}{'server'}");
 	$self -> info("user_name:           $$self{'_options'}{'user_name'}");
 	$self -> info("user_password:       $$self{'_options'}{'user_password'}");
 	$self -> info("verbose:             $$self{'_options'}{'verbose'}");
@@ -707,7 +707,7 @@ It will read an unpacked distro of the XMail mail server, and install, configure
 
 Also, it will stop and remove the service if it is already running.
 
-So, download xmail-1.24.win32bin.zip from http://xmailserver.org/ and unpack it into c:\. This creates c:\xmail-1.24.
+So, download xmail-1.25.win32bin.zip from http://xmailserver.org/ and unpack it into c:\. This creates c:\xmail-1.25.
 
 	Then:
 	Unpack the distro.
@@ -721,25 +721,24 @@ Sometimes it would work, and sometimes it would not.
 
 =head1 Distributions
 
-This module is available both as a Unix-style distro (*.tgz) and an
-ActiveState-style distro (*.ppd). The latter is shipped in a *.zip file.
+This module is available as a Unix-style distro (*.tgz).
 
 See http://savage.net.au/Perl-modules.html for details.
 
 See http://savage.net.au/Perl-modules/html/installing-a-module.html for
-help on unpacking and installing each type of distro.
+help on unpacking and installing.
 
 =head1 Constructor and initialization
 
-new(...) returns an object of type C<DBIx::Admin::BackupRestore>.
+new(...) returns an object of type C<XMail::Install>.
 
 This is the class's contructor.
 
-Usage: DBIx::Admin::BackupRestore -> new().
+Usage: XMail::Install -> new().
 
-This method takes a set of parameters. Only the dbh parameter is mandatory.
+This method takes a hashref of options. There are no mandatory options.
 
-For each parameter you wish to use, call new as new(param_1 => value_1, ...).
+Call C<new()> as new(options => {key_1 => value_1, key_2 => value_2, ...}).
 
 =over 4
 
@@ -753,7 +752,7 @@ The default is xmail.net.
 
 This is the name of the directory into which you unpacked XMail.
 
-The default is c:\xmail-1.24.
+The default is c:\xmail-1.25.
 
 =item out_dir
 
@@ -761,7 +760,7 @@ This is the name of the directory into which XMail's default directory MailRoot 
 
 The default is c:\, so XMail will be installed into c:\MailRoot.
 
-Also, executables in the distro dir c:\xmail-1.24\bin will be copied to c:\MailRoot\bin.
+Also, executables in the distro dir c:\xmail-1.25\bin will be copied to c:\MailRoot\bin.
 
 =item postmaster_password
 

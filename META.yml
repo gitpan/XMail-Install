@@ -1,6 +1,6 @@
 ---
 name: XMail-Install
-version: 1.00
+version: 1.01
 author:
   - 'Ron Savage <ron@savage.net.au>'
 abstract: A module to install the MS Windows mail server XMail
@@ -26,8 +26,8 @@ build_requires:
 provides:
   XMail::Install:
     file: lib/XMail/Install.pm
-    version: 1.00
-generated_by: Module::Build version 0.2806
+    version: 1.01
+generated_by: Module::Build version 0.2808
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html
   version: 1.2
